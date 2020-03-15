@@ -1,6 +1,6 @@
 {
   "name": "webreact",
-  "homepage": "http://cbudtz.github.io/corona",
+  "homepage": "http://cbudtz.github.io/corona/build",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
