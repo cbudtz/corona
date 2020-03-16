@@ -19,12 +19,12 @@ class CoronaStore {
     };
     @computed
     get Infected(){
-        return this.data.filter((entry)=>entry.col==="2" && entry.row!=="1");
+        return this.data.filter((entry)=>entry.col==="2" && entry.row!=="0");
     }
 
     @computed
     get NewCases(){
-        return this.data.filter((entry)=>entry.col=="3");
+        return this.data.filter((entry)=>entry.col==="3" && entry.row!=="0");
     }
 
     @computed
