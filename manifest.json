@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Danske Corona-tal",
+  "name": "Danske Corona-tal Fra marts 2020 og frem",
   "icons": [
     {
       "src": "favicon.ico",
