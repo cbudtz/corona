@@ -26,6 +26,26 @@ class CoronaStore {
     get NewCases(){
         return this.data.filter((entry)=>entry.col==="3" && entry.row!=="0");
     }
+    @computed
+    get Deaths(){
+        return this.data.filter((entry)=>entry.col==="4" && entry.row!=="0");
+    }
+    @computed
+    get NewDeaths(){
+        return this.data.filter((entry)=>entry.col==="5" && entry.row!=="0");
+    }
+    @computed
+    get Remission(){
+        return this.data.filter((entry)=>entry.col==="6" && entry.row!=="0");
+    }
+    @computed
+    get Active(){
+        return this.data.filter((entry)=>entry.col==="7" && entry.row!=="0");
+    }
+    @computed
+    get Critical(){
+        return this.data.filter((entry)=>entry.col==="8" && entry.row!=="0");
+    }
 
     @computed
     get Titles (){

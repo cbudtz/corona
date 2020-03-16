@@ -49,6 +49,66 @@ function App() {
                 <Line type="monotone" dataKey="nye tilfælde pr. dag" stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
         </ResponsiveContainer>
+        <h2>Antal Døde - officielle danske tal - siden 1/3-2020</h2>
+        <ResponsiveContainer width="90%"  height={300}>
+            <LineChart
+                data={coronaStore.Deaths.map((entry)=>{
+                    return {"kumulerede dødsfald": parseInt(entry.content), row:entry.row}
+                })}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="row" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <ReferenceLine x="13" stroke="red" label="Ny grænse for testning" />
+                <Line type="monotone" dataKey="kumulerede dødsfald" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+        </ResponsiveContainer>
+        <h2>Antal Nye Dødsfald - officielle danske tal - siden 1/3-2020</h2>
+        <ResponsiveContainer width="90%"  height={300}>
+            <LineChart
+                data={coronaStore.NewDeaths.map((entry)=>{
+                    return {"Nye dødsfald pr. dag": parseInt(entry.content), row:entry.row}
+                })}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="row" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <ReferenceLine x="13" stroke="red" label="Ny grænse for testning" />
+                <Line type="monotone" dataKey="Nye dødsfald pr. dag" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+        </ResponsiveContainer>
+        <h2>Antal Raskmeldte - officielle danske tal - siden 1/3-2020</h2>
+        <ResponsiveContainer width="90%"  height={300}>
+            <LineChart
+                data={coronaStore.Remission.map((entry)=>{
+                    return {"Blevet raske": parseInt(entry.content), row:entry.row}
+                })}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="row" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <ReferenceLine x="13" stroke="red" label="Ny grænse for testning" />
+                <Line type="monotone" dataKey="Blevet raske" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+        </ResponsiveContainer>
+        <h2>Antal Kritisk syge - officielle danske tal - siden 1/3-2020</h2>
+        <ResponsiveContainer width="90%"  height={300}>
+            <LineChart
+                data={coronaStore.Critical.map((entry)=>{
+                    return {"Kritisk syge": parseInt(entry.content), row:entry.row}
+                })}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="row" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <ReferenceLine x="13" stroke="red" label="Ny grænse for testning" />
+                <Line type="monotone" dataKey="Kritisk syge" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+        </ResponsiveContainer>
     </div>
   );
 }
