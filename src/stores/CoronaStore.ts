@@ -99,7 +99,7 @@ class CoronaStore {
         }
         console.log(start);
         let hospitalized = parseInt(start.content);
-        let infected = hospitalized*10;
+        let infected = hospitalized*20;
         data.push({
             dato: 0,
             hospitalized:hospitalized,
@@ -111,14 +111,14 @@ class CoronaStore {
             infected = infected*this.growthRate*(1-(infected/(6000000-infected)));
             let prevHospitalized = hospitalized;
             if (data[i-latency]){
-                hospitalized = data[i-latency].infected*0.1;
+                hospitalized = data[i-latency].infected*0.05;
             }
             let date = new Date();
             date.setDate(date.getDate()+i-latency);
             let newPoint = {
                 dato: date.getDate()+1 + "/" + (date.getMonth()+1) ,
-                hospitalized:Math.round(hospitalized),
-                newHospitalized: Math.round(hospitalized-prevHospitalized),
+                kumuleretHospitaliserede:Math.round(hospitalized),
+                nyeIndlæggelser: Math.round(hospitalized-prevHospitalized),
                 infected:infected,
                 newInfected: infected-prevInfected,
             };

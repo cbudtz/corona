@@ -20,7 +20,7 @@ import {BasicGraph} from "./components/BasicGraph";
 
 function CalculationText() {
     return <>
-        <p>Beregnet ud fra 8 dage fra infektion til hospitalisering, 10% Hospitalisering og tilvækst på 1.43 (Estimeret ud fra regression af indlæggelser siden 15/3) - Der er taget højde for immunitet </p>
+        <p>Beregnet ud fra 8 dage fra infektion til hospitalisering, 5% Hospitalisering og tilvækst på 1.43 (Estimeret ud fra regression af indlæggelser siden 15/3) - Der er taget højde for immunitet </p>
         <h5>Advarsel - Spekulativt</h5>
     </>;
 }
@@ -89,7 +89,7 @@ function App() {
                         dataKey="Indlagte">
                     </BasicGraph>
 
-                    <h2>Antal Kritisk syge - officielle danske tal - siden 1/3-2020</h2>
+                    <h2>Antal kritisk syge - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
                         data={coronaStore.Critical.map((entry) => {
                             return {"Kritisk syge": parseInt(entry.content), row: entry.date}
@@ -100,7 +100,7 @@ function App() {
                     <div id={"Udsigt"} style={{paddingTop: 70}}/>
                     <h1> Corona Udsigten - Prognose ud fra dagens tal - Spekulativt</h1>
 
-                    <h2>Coronaudsigten - Estimeret Antal smittede</h2>
+                    <h2>Coronaudsigten - Estimeret antal smittede</h2>
                     <CalculationText/>
                     <BasicGraph
                         data={coronaStore.EstimatedInfected.map((entry) => {
@@ -108,7 +108,7 @@ function App() {
                         })}
                         dataKey="Estimeret antal smittede"
                     />
-                    <h2>Coronaudsigten - Estimeret Antal Nye Smittede</h2>
+                    <h2>Coronaudsigten - Estimeret antal nye smittede</h2>
                     <CalculationText/>
                     <BasicGraph
                         data={coronaStore.EstimatedNewInfected.map((entry) => {
@@ -118,7 +118,7 @@ function App() {
                     >
                     </BasicGraph>
 
-                    <h2>Coronaudsigten - Estimeret Antal Hospitaliserede</h2>
+                    <h2>Coronaudsigten - Estimeret antal hospitaliserede</h2>
                     <CalculationText/>
                     <BasicGraph
                         data={coronaStore.EstimatedHospitalized.map((entry) => {
@@ -155,18 +155,18 @@ function App() {
                         <ToggleButton checked={coronaStore.growthRate===1.3} type="radio" value={1.3}>Vækstrate 1.3</ToggleButton>
                         <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>Vækstrate 1.43</ToggleButton>
                     </ButtonGroup>
-                    <ResponsiveContainer width="90%"  height={300}>
+                    <ResponsiveContainer width="90%"  height={500}>
                         <LineChart
                             data={coronaStore.InteractiveNumbers}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="dato" />
-                            <YAxis yAxisId={"left"} domain={[0, 140000]}/>
-                            <YAxis orientation="right" domain={[0, 20000]}/>
+                            <YAxis yAxisId={"left"} domain={[0, 70000]}/>
+                            <YAxis orientation="right" domain={[0, 10000]}/>
                             <Tooltip />
                             <Legend />
-                            <ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />
-                            <Line yAxisId={"left"} type="monotone" dataKey={"hospitalized"} stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Line type="monotone" dataKey={"newHospitalized"} stroke="red" activeDot={{ r: 8 }} />
+                            {/*<ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />*/}
+                            <Line yAxisId={"left"} type="monotone" dataKey={"kumuleretHospitaliserede"} stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey={"nyeIndlæggelser"} stroke="red" activeDot={{ r: 8 }} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
