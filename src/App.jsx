@@ -128,9 +128,7 @@ function App() {
                     </BasicGraph>
 
                     <h2>Coronaudsigten - Estimeret Antal Nye Hospitaliserede</h2>
-                    <h4>Beregnet ud fra 8 dage fra infektion til hospitalisering, 10% Hospitalisering og tilvækst på 1.3
-                        (tilvækst pr 12/3) - Der er taget højde for immunitet </h4>
-                    <h5>Advarsel - Spekulativt</h5>
+                    <CalculationText/>
                     <ResponsiveContainer width="90%" height={300}>
                         <LineChart
                             data={coronaStore.EstimatedNewHospitalized.map((entry) => {
