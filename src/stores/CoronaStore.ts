@@ -6,6 +6,22 @@ class CoronaStore {
         this.fetchData();
     }
     @observable data = [{date:"", content:"NOT ready",row:"0",col:"0"}];
+    @observable structuredData = [{Dato:"",
+        "Nye Tilfælde":"NOT ready",
+        "Døde":"NOT ready",
+        "Nye Døde":"NOT ready",
+        "Remission":"NOT ready",
+        "Aktive":"",
+        "Intensiv":"",
+        "Indlagte":"",
+        "Estimerede tilfælde":"",
+        "Estimerede nye tilfælde":"",
+        "Estimeret antal indlagte":"",
+        "Estimeret antal nye indlagte":"",
+        "Respiratorbehandlede":"",
+        row:"0",
+        col:"0"}]
+    @observable growthRate = 1.3;
 
     fetchData = async ()=>{
         let result;
@@ -16,6 +32,7 @@ class CoronaStore {
             return {date: dataDate, content:entry.content.$t,row:entry.gs$cell.row,col:entry.gs$cell.col}
             }
         );
+        // const structuredData;
         this.data = newData;
     };
     @computed
@@ -71,6 +88,44 @@ class CoronaStore {
     get EstimatedNewHospitalized(){
         return this.data.filter((entry)=>entry.col==="13" && entry.row!=="1")
 
+    }
+    @computed
+    get InteractiveNumbers(){
+        const latency =10;
+        let data = [];
+        const start = this.Hospitalized[this.Hospitalized.length-1]
+        if(!start){
+            return[{}];
+        }
+        console.log(start);
+        let hospitalized = parseInt(start.content);
+        let infected = hospitalized*10;
+        data.push({
+            dato: 0,
+            hospitalized:hospitalized,
+            infected:infected,
+            newInfected: 0
+        });
+        for (let i = 0; i < 90; i++) {
+            let prevInfected = infected;
+            infected = infected*this.growthRate*(1-(infected/(6000000-infected)));
+            let prevHospitalized = hospitalized;
+            if (data[i-latency]){
+                hospitalized = data[i-latency].infected*0.1;
+            }
+            let date = new Date();
+            date.setDate(date.getDate()+i-latency);
+            let newPoint = {
+                dato: date.getDate()+1 + "/" + (date.getMonth()+1) ,
+                hospitalized:Math.round(hospitalized),
+                newHospitalized: Math.round(hospitalized-prevHospitalized),
+                infected:infected,
+                newInfected: infected-prevInfected,
+            };
+
+            data.push(newPoint);
+        }
+        return data;
     }
 
     @computed

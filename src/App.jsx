@@ -15,7 +15,7 @@ import {
     XAxis,
     YAxis
 } from "recharts";
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {ButtonGroup, Container, Nav, Navbar, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 import {BasicGraph} from "./components/BasicGraph";
 
 function CalculationText() {
@@ -34,6 +34,7 @@ function App() {
                     <Nav>
                         <Nav.Link href={"#Tal"}>Dagens Tal</Nav.Link>
                         <Nav.Link href={"#Udsigt"}>CoronaUdsigten</Nav.Link>
+                        <Nav.Link href={"#Interaktiv"}>Den interaktive udsigt</Nav.Link>
                     </Nav>
 
                 </Navbar>
@@ -129,22 +130,45 @@ function App() {
 
                     <h2>Coronaudsigten - Estimeret Antal Nye Hospitaliserede</h2>
                     <CalculationText/>
-                    <ResponsiveContainer width="90%" height={300}>
+
+                    <BasicGraph
+                        data={coronaStore.EstimatedNewHospitalized.map((entry) => {
+                            return {"Estimeret antal nye hospitaliserede": parseInt(entry.content), row: entry.date}
+                        })}
+                        dataKey="Estimeret antal nye hospitaliserede"
+                    >
+                    </BasicGraph>
+
+                    <h2>Coronaudsigten - Den interaktive </h2>
+                    <p align={"left"}>Afprøv betydningen af at reducere Vækst/smitteraten
+                        <ul>
+                            <li>1.3 er raten i nye smittede indtil 12/3. </li>
+                            <li>1.43 er raten i nye indlæggelser fra 14-19/3</li>
+                            <li>1.1 og 1.2 er forhåbentlig resultatet af vores nye tiltag </li>
+                        </ul>
+                        <i>Kun til illustration</i>
+                    </p>
+                    <div id={"Interaktiv"} style={{paddingTop: 70}}/>
+                    <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
+                        <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>Vækstrate 1.1</ToggleButton>
+                        <ToggleButton checked={coronaStore.growthRate===1.2} type="radio" value={1.2}>Vækstrate 1.2</ToggleButton>
+                        <ToggleButton checked={coronaStore.growthRate===1.3} type="radio" value={1.3}>Vækstrate 1.3</ToggleButton>
+                        <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>Vækstrate 1.43</ToggleButton>
+                    </ButtonGroup>
+                    <ResponsiveContainer width="90%"  height={300}>
                         <LineChart
-                            data={coronaStore.EstimatedNewHospitalized.map((entry) => {
-                                return {"Estimeret antal nye hospitaliserede": parseInt(entry.content), row: entry.date}
-                            })}>
-                            <CartesianGrid strokeDasharray="3 3"/>
-                            <XAxis dataKey="row"/>
-                            <YAxis/>
-                            <Tooltip/>
-                            <Legend/>
-                            <ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning"/>
-                            <Line type="monotone" dataKey="Estimeret antal nye hospitaliserede" stroke="#8884d8"
-                                  activeDot={{r: 8}}/>
+                            data={coronaStore.InteractiveNumbers}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="dato" />
+                            <YAxis yAxisId={"left"} domain={[0, 140000]}/>
+                            <YAxis orientation="right" domain={[0, 20000]}/>
+                            <Tooltip />
+                            <Legend />
+                            <ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />
+                            <Line yAxisId={"left"} type="monotone" dataKey={"hospitalized"} stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey={"newHospitalized"} stroke="red" activeDot={{ r: 8 }} />
                         </LineChart>
                     </ResponsiveContainer>
-
                 </div>
             </Container>
         </div>
