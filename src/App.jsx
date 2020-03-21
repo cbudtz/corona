@@ -39,8 +39,9 @@ function App() {
 
                 </Navbar>
             </Container>
-            <h5>Tal kommer fra: <a href={"https://docs.google.com/spreadsheets/d/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/edit#gid=0"}>Dette regneark</a></h5>
+
             <Container style={{marginTop: 70}}>
+                <h5>Tal kommer fra: <a href={"https://docs.google.com/spreadsheets/d/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/edit#gid=0"}>Dette regneark</a></h5>
                 <div>
                     <div id={"Tal"} style={{paddingTop: 70}}/>
                     <h2>Antal Smittede - officielle danske tal - siden 1/3-2020</h2>
@@ -159,6 +160,10 @@ function App() {
                         </i>
                     </p>
                     <div id={"Interaktiv"} style={{paddingTop: 70}}/>
+                    <div>
+                        Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} %
+                        Hospitaliseringsgrad {coronaStore.hospitalizationRate*100} %
+                    </div>
                     <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
                         <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>Vækstrate 1.1</ToggleButton>
                         <ToggleButton checked={coronaStore.growthRate===1.2} type="radio" value={1.2}>Vækstrate 1.2</ToggleButton>
