@@ -20,7 +20,7 @@ import {BasicGraph} from "./components/BasicGraph";
 
 function CalculationText() {
     return <>
-        <p>Beregnet ud fra 8 dage fra infektion til hospitalisering, 5% Hospitalisering og tilvækst på 1.43 (Estimeret ud fra regression af indlæggelser siden 15/3) - Der er taget højde for immunitet </p>
+        <p>Beregnet ud fra 8 dage fra smitte til hospitalisering, 5% Hospitalisering og tilvækst på 1.36 (Estimeret ud fra regression af indlæggelser 15/3-20/3) - Der er taget højde for immunitet </p>
         <h5>Advarsel - Spekulativt</h5>
     </>;
 }
@@ -39,6 +39,7 @@ function App() {
 
                 </Navbar>
             </Container>
+            <h5>Tal kommer fra: <a href={"https://docs.google.com/spreadsheets/d/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/edit#gid=0"}>Dette regneark</a></h5>
             <Container style={{marginTop: 70}}>
                 <div>
                     <div id={"Tal"} style={{paddingTop: 70}}/>
@@ -146,7 +147,16 @@ function App() {
                             <li>1.43 er raten i nye indlæggelser fra 14-19/3</li>
                             <li>1.1 og 1.2 er forhåbentlig resultatet af vores nye tiltag </li>
                         </ul>
-                        <i>Kun til illustration</i>
+                        <ul>
+                            <li>Der er rapporteret hospitaliseringsgrader mellem 1% og 10% af smittede</li>
+                            <li>Der er beregnet ud fra gennemsnitligt 14 dages indlæggelse</li>
+                            <li>Der kan ses et negativt antal indlæggelser ved overgang fra faktuelle tal til estimater - det er et artefakt fra når reelle indlæggelser overstiger estimerede
+                            </li>
+                        </ul>
+                        <i>Kun til illustration - Se i øvrigt <br/>
+                            <h5><a href={"http://gabgoh.github.io/COVID/index.html?fbclid=IwAR2bEVDY-nIDvqAbQ-siUthGSxlk5TL2QscdX8VTp004nnv6dw9Yh0XRGIU"}>Epidemic calculator</a></h5>
+                            , for et mere avanceret værktøj
+                        </i>
                     </p>
                     <div id={"Interaktiv"} style={{paddingTop: 70}}/>
                     <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
@@ -155,18 +165,25 @@ function App() {
                         <ToggleButton checked={coronaStore.growthRate===1.3} type="radio" value={1.3}>Vækstrate 1.3</ToggleButton>
                         <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>Vækstrate 1.43</ToggleButton>
                     </ButtonGroup>
+                    <ButtonGroup toggle type="checkbox" value={coronaStore.hospitalizationRate} onChange={(e)=>{coronaStore.hospitalizationRate=e.target.value}}>
+                        <ToggleButton checked={coronaStore.hospitalizationRate===0.01} type="radio" value={0.01}>1% hospitaliserede</ToggleButton>
+                        <ToggleButton checked={coronaStore.hospitalizationRate===0.02} type="radio" value={0.02}>2% hospitaliserede</ToggleButton>
+                        <ToggleButton checked={coronaStore.hospitalizationRate===0.05} type="radio" value={0.05}>5% hospitaliserede</ToggleButton>
+                        <ToggleButton checked={coronaStore.hospitalizationRate===0.10} type="radio" value={0.10}>10% hospitaliserede</ToggleButton>
+                    </ButtonGroup>
                     <ResponsiveContainer width="90%"  height={500}>
                         <LineChart
                             data={coronaStore.InteractiveNumbers}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="dato" />
                             <YAxis yAxisId={"left"} domain={[0, 70000]}/>
-                            <YAxis orientation="right" domain={[0, 10000]}/>
+                            <YAxis orientation="right" domain={[0, 50000]}/>
                             <Tooltip />
                             <Legend />
                             {/*<ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />*/}
                             <Line yAxisId={"left"} type="monotone" dataKey={"kumuleretHospitaliserede"} stroke="#8884d8" activeDot={{ r: 8 }} />
                             <Line type="monotone" dataKey={"nyeIndlæggelser"} stroke="red" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey={"indlagte"} stroke="green" activeDot={{ r: 8 }} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>

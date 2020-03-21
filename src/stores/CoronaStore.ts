@@ -22,6 +22,7 @@ class CoronaStore {
         row:"0",
         col:"0"}]
     @observable growthRate = 1.3;
+    @observable hospitalizationRate = 0.05;
 
     fetchData = async ()=>{
         let result;
@@ -102,16 +103,18 @@ class CoronaStore {
         let infected = hospitalized*20;
         data.push({
             dato: 0,
-            hospitalized:hospitalized,
+            kumuleretHospitaliserede:hospitalized,
+            nyeIndlæggelser:0,
             infected:infected,
-            newInfected: 0
+            newInfected: 0,
+            indlagte:0
         });
         for (let i = 0; i < 90; i++) {
             let prevInfected = infected;
             infected = infected*this.growthRate*(1-(infected/(6000000-infected)));
             let prevHospitalized = hospitalized;
             if (data[i-latency]){
-                hospitalized = data[i-latency].infected*0.05;
+                hospitalized = data[i-latency].infected*this.hospitalizationRate;
             }
             let date = new Date();
             date.setDate(date.getDate()+i-latency);
@@ -121,8 +124,13 @@ class CoronaStore {
                 nyeIndlæggelser: Math.round(hospitalized-prevHospitalized),
                 infected:infected,
                 newInfected: infected-prevInfected,
-            };
+                indlagte: 0
 
+            };
+            let indlagte = 0;
+            for (let j = i;j>0 && i-j<14;j--) {
+                newPoint.indlagte += data[j].nyeIndlæggelser;
+            }
             data.push(newPoint);
         }
         return data;
