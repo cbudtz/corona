@@ -94,10 +94,11 @@ class CoronaStore {
     @computed
     get RegressionGrowthRate(){
         let growthRate = this.data.filter((entry)=>entry.col=="17")[1]?.content;
+        let growthText = this.data.filter((entry)=>entry.col=="18")[1]?.content;
         if (growthRate){
-            return growthRate;
+            return [growthRate,growthText];
         }
-        return "loading...";
+        return ["loading...","loading"];
     }
 
     @computed
