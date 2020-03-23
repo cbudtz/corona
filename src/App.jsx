@@ -20,7 +20,7 @@ import {BasicGraph} from "./components/BasicGraph";
 
 function CalculationText() {
     return <>
-        <p>Beregnet ud fra 8 dage fra smitte til hospitalisering, 5% Hospitalisering og tilvækst på 1.36 (Estimeret ud fra regression af indlæggelser 15/3-20/3) - Der er taget højde for immunitet </p>
+        <p>Beregnet ud fra 8 dage fra smitte til hospitalisering, 5% Hospitalisering og tilvækst på {coronaStore.RegressionGrowthRate} (Estimeret ud fra regression af indlæggelser 15/3-20/3) - Der er taget højde for immunitet </p>
         <h5>Advarsel - Spekulativt</h5>
     </>;
 }
@@ -181,12 +181,11 @@ function App() {
                             data={coronaStore.InteractiveNumbers}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="dato" />
-                            <YAxis yAxisId={"left"} domain={[0, 70000]}/>
-                            <YAxis orientation="right" domain={[0, 50000]}/>
+                            <YAxis domain={[0, 50000]}/>
                             <Tooltip />
                             <Legend />
                             {/*<ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />*/}
-                            <Line yAxisId={"left"} type="monotone" dataKey={"kumuleretHospitaliserede"} stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey={"kumuleretHospitaliserede"} stroke="#8884d8" activeDot={{ r: 8 }} />
                             <Line type="monotone" dataKey={"nyeIndlæggelser"} stroke="red" activeDot={{ r: 8 }} />
                             <Line type="monotone" dataKey={"indlagte"} stroke="green" activeDot={{ r: 8 }} />
                         </LineChart>

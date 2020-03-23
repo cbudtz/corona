@@ -90,6 +90,16 @@ class CoronaStore {
         return this.data.filter((entry)=>entry.col==="13" && entry.row!=="1")
 
     }
+
+    @computed
+    get RegressionGrowthRate(){
+        let growthRate = this.data.filter((entry)=>entry.col=="17")[1]?.content;
+        if (growthRate){
+            return growthRate;
+        }
+        return "loading...";
+    }
+
     @computed
     get InteractiveNumbers(){
         const latency =10;
