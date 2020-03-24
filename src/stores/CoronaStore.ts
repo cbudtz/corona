@@ -100,6 +100,10 @@ class CoronaStore {
         }
         return ["loading...","loading"];
     }
+    @computed
+    get FractionHospitalized(){
+        return this.data.filter((entry)=>entry.col=="16")[1]?.content ?? "Loading";
+    }
 
     @computed
     get InteractiveNumbers(){
@@ -130,12 +134,12 @@ class CoronaStore {
             let date = new Date();
             date.setDate(date.getDate()+i-latency);
             let newPoint = {
-                dato: date.getDate()+1 + "/" + (date.getMonth()+1) ,
+                dato: date.getDate() + "/" + (date.getMonth()+1) ,
                 kumuleretHospitaliserede:Math.round(hospitalized),
                 nyeIndlæggelser: Math.round(hospitalized-prevHospitalized),
                 infected:infected,
                 newInfected: infected-prevInfected,
-                indlagte: 0
+                indlagte: parseInt(start.content)
 
             };
             let indlagte = 0;
@@ -144,7 +148,7 @@ class CoronaStore {
             }
             data.push(newPoint);
         }
-        return data;
+        return data.splice(latency+1);
     }
 
     @computed
