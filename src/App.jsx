@@ -15,7 +15,7 @@ import {
     XAxis,
     YAxis
 } from "recharts";
-import {ButtonGroup, Container, Nav, Navbar, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
+import {ButtonGroup, Container, InputGroup, Nav, Navbar, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 import {BasicGraph} from "./components/BasicGraph";
 
 function CalculationText() {
@@ -27,9 +27,10 @@ function CalculationText() {
 
 function App() {
     let data = coronaStore.data;
+    const regGrowth = parseFloat(coronaStore.RegressionGrowthRate[0].replace(",","."));
     return (
         <div className="App">
-            <Container>
+            <Container fluid>
                 <Navbar fixed={"top"} style={{backgroundColor: "white"}}>
                     <Nav>
                         <Nav.Link href={"#Tal"}>Dagens Tal</Nav.Link>
@@ -120,10 +121,10 @@ function App() {
                     >
                     </BasicGraph>
 
-                    <h2>Coronaudsigten - Estimeret antal hospitaliserede</h2>
+                    <h2>Coronaudsigten - Estimeret Kumuleret antal hospitaliserede</h2>
                     <CalculationText/>
                     <BasicGraph
-                        data={coronaStore.EstimatedHospitalized.map((entry) => {
+                        data={coronaStore.EstimatedCumulatedHospitalized.map((entry) => {
                             return {"Estimeret antal hospitaliserede": parseInt(entry.content), row: entry.date}
                         })}
                         dataKey="Estimeret antal hospitaliserede"
@@ -138,6 +139,27 @@ function App() {
                             return {"Estimeret antal nye hospitaliserede": parseInt(entry.content), row: entry.date}
                         })}
                         dataKey="Estimeret antal nye hospitaliserede"
+                    >
+                    </BasicGraph>
+
+                    <h2>Coronaudsigten - Estimeret antal indlagte</h2>
+                    <CalculationText/>
+
+                    <BasicGraph
+                        data={coronaStore.EstimatedCurrentHospitalized.map((entry) => {
+                            return {"Estimeret antal hospitaliserede": parseInt(entry.content), row: entry.date}
+                        })}
+                        dataKey="Estimeret antal hospitaliserede"
+                    >
+                    </BasicGraph>
+                    <h2>Coronaudsigten - Estimeret antal respiratorpatienter</h2>
+                    <CalculationText/>
+
+                    <BasicGraph
+                        data={coronaStore.EstimatedCurrentRespiratorPatients.map((entry) => {
+                            return {"Estimeret antal respiratorpatienter": parseInt(entry.content), row: entry.date}
+                        })}
+                        dataKey="Estimeret antal respiratorpatienter"
                     >
                     </BasicGraph>
 
@@ -164,30 +186,38 @@ function App() {
                         Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} %
                         Hospitaliseringsgrad {coronaStore.hospitalizationRate*100} %
                     </div>
-                    <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
-                        <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>Vækstrate 1.1</ToggleButton>
-                        <ToggleButton checked={coronaStore.growthRate===1.2} type="radio" value={1.2}>Vækstrate 1.2</ToggleButton>
-                        <ToggleButton checked={coronaStore.growthRate===1.3} type="radio" value={1.3}>Vækstrate 1.3</ToggleButton>
-                        <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>Vækstrate 1.43</ToggleButton>
-                    </ButtonGroup>
-                    <ButtonGroup toggle type="checkbox" value={coronaStore.hospitalizationRate} onChange={(e)=>{coronaStore.hospitalizationRate=e.target.value}}>
-                        <ToggleButton checked={coronaStore.hospitalizationRate===0.01} type="radio" value={0.01}>1% hospitaliserede</ToggleButton>
-                        <ToggleButton checked={coronaStore.hospitalizationRate===0.02} type="radio" value={0.02}>2% hospitaliserede</ToggleButton>
-                        <ToggleButton checked={coronaStore.hospitalizationRate===0.05} type="radio" value={0.05}>5% hospitaliserede</ToggleButton>
-                        <ToggleButton checked={coronaStore.hospitalizationRate===0.10} type="radio" value={0.10}>10% hospitaliserede</ToggleButton>
-                    </ButtonGroup>
-                    <ResponsiveContainer width="90%"  height={500}>
+                    <p>
+                        <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
+
+                            <ToggleButton checked={coronaStore.growthRate===regGrowth} type="radio" value={regGrowth}>Nuværende Vækstrate {regGrowth}</ToggleButton>
+
+                            <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>Vækstrate 1.1</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.2} type="radio" value={1.2}>Vækstrate 1.2</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.3} type="radio" value={1.3}>Vækstrate 1.3</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>Vækstrate 1.43</ToggleButton>
+                        </ButtonGroup>
+                    </p>
+                    <p>
+                        <ButtonGroup toggle type="checkbox" value={coronaStore.hospitalizationRate} onChange={(e)=>{coronaStore.hospitalizationRate=e.target.value}}>
+                            <ToggleButton checked={coronaStore.hospitalizationRate===0.01} type="radio" value={0.01}>1% hospitaliserede</ToggleButton>
+                            <ToggleButton checked={coronaStore.hospitalizationRate===0.02} type="radio" value={0.02}>2% hospitaliserede</ToggleButton>
+                            <ToggleButton checked={coronaStore.hospitalizationRate===0.05} type="radio" value={0.05}>5% hospitaliserede</ToggleButton>
+                            <ToggleButton checked={coronaStore.hospitalizationRate===0.10} type="radio" value={0.10}>10% hospitaliserede</ToggleButton>
+                        </ButtonGroup>
+                    </p>
+                    <ResponsiveContainer width="90%"  height={800}>
                         <LineChart
                             data={coronaStore.InteractiveNumbers}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="dato" />
-                            <YAxis domain={[0, 50000]}/>
+                            <YAxis domain={[0, 15000]}/>
                             <Tooltip />
                             <Legend />
                             {/*<ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />*/}
                             <Line type="monotone" dataKey={"kumuleretHospitaliserede"} stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Line type="monotone" dataKey={"nyeIndlæggelser"} stroke="red" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey={"nyeIndlæggelser"} stroke="yellow" activeDot={{ r: 8 }} />
                             <Line type="monotone" dataKey={"indlagte"} stroke="green" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey={"respiratorPt"} stroke="red" activeDot={{ r: 8 }} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
