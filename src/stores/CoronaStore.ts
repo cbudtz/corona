@@ -205,7 +205,7 @@ class CoronaStore {
             for (let j = i;j>0 && i-j<14;j--) {
                 newPoint.indlagte += data[j].nyeIndlæggelser;
             }
-            newPoint.respiratorPt = Math.round(newPoint.indlagte*this.hospitalizationRate);
+            newPoint.respiratorPt = Math.round(newPoint.indlagte*0.20);
             data.push(newPoint);
         }
         return data.splice(latency+1);
