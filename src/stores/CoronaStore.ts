@@ -173,7 +173,7 @@ class CoronaStore {
         }
         console.log(start);
         let hospitalized = parseInt(start.content);
-        let infected = hospitalized*20;
+        let infected = hospitalized*1/this.hospitalizationRate;
         data.push({
             dato: 0,
             kumuleretHospitaliserede:hospitalized,
@@ -205,7 +205,7 @@ class CoronaStore {
             for (let j = i;j>0 && i-j<14;j--) {
                 newPoint.indlagte += data[j].nyeIndlæggelser;
             }
-            newPoint.respiratorPt = Math.round(newPoint.indlagte*0.20);
+            newPoint.respiratorPt = Math.round(newPoint.indlagte*this.hospitalizationRate);
             data.push(newPoint);
         }
         return data.splice(latency+1);
