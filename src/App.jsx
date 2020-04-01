@@ -160,7 +160,10 @@ function App() {
                             return {"Estimeret antal respiratorpatienter": parseInt(entry.content), row: entry.date}
                         })}
                         dataKey="Estimeret antal respiratorpatienter"
+                        domain={[0,1300]}
+                        height={500}
                     >
+                        <ReferenceLine y="1260" stroke="red" label="Respirator kapacitet" />
                     </BasicGraph>
 
                     <h2>Coronaudsigten - Den interaktive </h2>

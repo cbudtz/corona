@@ -36,11 +36,12 @@ class CoronaStore {
                 if (day >31){
                     day -= 31;
                     month++;
+                    if (day >30 ){
+                        day -=30;
+                        month++;
+                    }
                 }
-                if (day >30 ){
-                    day -=30;
-                    month++;
-                }
+
                 const dataDate = day + "/" + month;
                 return {date: dataDate, content:entry.content.$t,row:entry.gs$cell.row,col:entry.gs$cell.col}
             }
