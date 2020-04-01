@@ -163,7 +163,7 @@ function App() {
                         domain={[0,1300]}
                         height={500}
                     >
-                        <ReferenceLine y="1260" stroke="red" label="Respirator kapacitet" />
+                        <ReferenceLine y="1238" stroke="red" label="Respirator kapacitet (Absolut max)" />
                     </BasicGraph>
 
                     <h2>Coronaudsigten - Den interaktive </h2>
@@ -193,7 +193,6 @@ function App() {
                         <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
 
                             <ToggleButton checked={coronaStore.growthRate===regGrowth} type="radio" value={regGrowth}>Nuværende Vækstrate {regGrowth}</ToggleButton>
-
                             <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>Vækstrate 1.1</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.2} type="radio" value={1.2}>Vækstrate 1.2</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.3} type="radio" value={1.3}>Vækstrate 1.3</ToggleButton>
