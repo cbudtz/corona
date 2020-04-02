@@ -121,15 +121,15 @@ function App() {
                     >
                     </BasicGraph>
 
-                    <h2>Coronaudsigten - Estimeret Kumuleret antal hospitaliserede</h2>
-                    <CalculationText/>
-                    <BasicGraph
-                        data={coronaStore.EstimatedCumulatedHospitalized.map((entry) => {
-                            return {"Estimeret antal hospitaliserede": parseInt(entry.content), row: entry.date}
-                        })}
-                        dataKey="Estimeret antal hospitaliserede"
-                    >
-                    </BasicGraph>
+                    {/*<h2>Coronaudsigten - Estimeret Kumuleret antal hospitaliserede</h2>*/}
+                    {/*<CalculationText/>*/}
+                    {/*<BasicGraph*/}
+                    {/*    data={coronaStore.EstimatedCumulatedHospitalized.map((entry) => {*/}
+                    {/*        return {"Estimeret antal hospitaliserede": parseInt(entry.content), row: entry.date}*/}
+                    {/*    })}*/}
+                    {/*    dataKey="Estimeret antal hospitaliserede"*/}
+                    {/*>*/}
+                    {/*</BasicGraph>*/}
 
                     <h2>Coronaudsigten - Estimeret Antal Nye Hospitaliserede</h2>
                     <CalculationText/>
