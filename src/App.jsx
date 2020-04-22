@@ -20,7 +20,7 @@ import {BasicGraph} from "./components/BasicGraph";
 
 function CalculationText() {
     return <>
-        <p>Beregnet ud fra 8 dage fra smitte til hospitalisering, {100/coronaStore.FractionHospitalized}% Hospitalisering og tilvækst på {coronaStore.RegressionGrowthRate[0]} (Estimeret ud fra {coronaStore.RegressionGrowthRate[1]}) - Der er taget højde for immunitet </p>
+        <p>Beregnet ud fra 8 dage fra smitte til hospitalisering, {(100/coronaStore.FractionHospitalized).toFixed(2)}% Hospitalisering og tilvækst på {coronaStore.RegressionGrowthRate[0]} (Estimeret ud fra {coronaStore.RegressionGrowthRate[1]}) - Der er taget højde for immunitet </p>
         <h5>Advarsel - Spekulativt</h5>
     </>;
 }
@@ -169,9 +169,7 @@ function App() {
                     <h2>Coronaudsigten - Den interaktive </h2>
                     <p align={"left"}>Afprøv betydningen af at reducere Vækst/smitteraten
                         <ul>
-                            <li>1.3 er raten i nye smittede indtil 12/3. </li>
-                            <li>1.43 er raten i nye indlæggelser fra 14-19/3</li>
-                            <li>1.1 og 1.2 er forhåbentlig resultatet af vores nye tiltag </li>
+                            <li>1.43 er raten i nye indlæggelser fra 14-19/3 - Før corona tiltag</li>
                         </ul>
                         <ul>
                             <li>Der er rapporteret hospitaliseringsgrader mellem 1% og 10% af smittede</li>
@@ -193,10 +191,11 @@ function App() {
                         <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
 
                             <ToggleButton checked={coronaStore.growthRate===regGrowth} type="radio" value={regGrowth}>Nuværende Vækstrate {regGrowth}</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>Vækstrate 1.1</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.2} type="radio" value={1.2}>Vækstrate 1.2</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.3} type="radio" value={1.3}>Vækstrate 1.3</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>Vækstrate 1.43</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.01} type="radio" value={1.01}>1.01</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.02} type="radio" value={1.02}>1.02</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.05} type="radio" value={1.05}>1.05</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>1.10</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>1.43</ToggleButton>
                         </ButtonGroup>
                     </p>
                     <p>
@@ -212,7 +211,7 @@ function App() {
                             data={coronaStore.InteractiveNumbers}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="dato" />
-                            <YAxis domain={[0, 15000]}/>
+                            <YAxis domain={[0, 5000]}/>
                             <Tooltip />
                             <Legend />
                             {/*<ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />*/}
