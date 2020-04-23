@@ -184,7 +184,8 @@ function App() {
                     </p>
                     <div id={"Interaktiv"} style={{paddingTop: 70}}/>
                     <div>
-                        Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} %
+                        Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} % <br/>
+                        R(t) = {(Math.pow(coronaStore.growthRate,2.5)).toFixed(2)} <br/>
                         Hospitaliseringsgrad {coronaStore.hospitalizationRate*100} %
                     </div>
                     <p>
@@ -194,6 +195,7 @@ function App() {
                             <ToggleButton checked={coronaStore.growthRate===1.01} type="radio" value={1.01}>1.01</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.02} type="radio" value={1.02}>1.02</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.05} type="radio" value={1.05}>1.05</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===1.08} type="radio" value={1.08}>1.08</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>1.10</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>1.43</ToggleButton>
                         </ButtonGroup>
