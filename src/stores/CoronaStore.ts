@@ -30,19 +30,12 @@ class CoronaStore {
         let result;
         result = await fetch("https://spreadsheets.google.com/feeds/cells/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/1/public/full?alt=json");
         let json = await result.json();
-        const newData =json.feed.entry.map((entry: any)=>{
-                let month = 3;
-                let day = parseInt(entry.gs$cell.row);
-                if (day >31){
-                    day -= 31;
-                    month++;
-                    if (day >30 ){
-                        day -=30;
-                        month++;
-                    }
-                }
-
-                const dataDate = day + "/" + month;
+        const date = new Date(2020,2,1);
+        const newData =json.feed.entry.map((entry: any,key:number)=>{
+                let now;
+                now = new Date(date.valueOf());
+                now.setDate(now.getDate()+parseInt(entry.gs$cell.row)-1);
+                const dataDate = now.getDate() + "/" + (now.getMonth()+1);
                 return {date: dataDate, content:entry.content.$t,row:entry.gs$cell.row,col:entry.gs$cell.col}
             }
         );
@@ -116,6 +109,11 @@ class CoronaStore {
     @computed
     get Critical(){
         return this.data.filter((entry)=>entry.col==="8" && entry.row!=="1");
+    }
+
+    @computed
+    get Ventilator(){
+        return this.data.filter((entry)=>entry.col==="14" && entry.row!=="1");
     }
     @computed
     get Hospitalized(){

@@ -140,29 +140,33 @@ function App() {
                         })}
                         dataKey="Estimeret antal nye hospitaliserede"
                     >
+
                     </BasicGraph>
 
                     <h2>Coronaudsigten - Estimeret antal indlagte</h2>
                     <CalculationText/>
 
                     <BasicGraph
-                        data={coronaStore.EstimatedCurrentHospitalized.map((entry) => {
-                            return {"Estimeret antal hospitaliserede": parseInt(entry.content), row: entry.date}
+                        data={coronaStore.EstimatedCurrentHospitalized.map((entry,key) => {
+
+                            return {"Estimeret antal hospitaliserede": parseInt(entry.content), row: entry.date, "Reelle hospitaliserede": coronaStore.Hospitalized[key+22]?.content}
                         })}
                         dataKey="Estimeret antal hospitaliserede"
                     >
+                        <Line type="monotone" dataKey={"Reelle hospitaliserede"} stroke="green" activeDot={{r: 8}}/>
                     </BasicGraph>
                     <h2>Coronaudsigten - Estimeret antal respiratorpatienter</h2>
                     <CalculationText/>
 
                     <BasicGraph
-                        data={coronaStore.EstimatedCurrentRespiratorPatients.map((entry) => {
-                            return {"Estimeret antal respiratorpatienter": parseInt(entry.content), row: entry.date}
+                        data={coronaStore.EstimatedCurrentRespiratorPatients.map((entry,key) => {
+                            return {"Estimeret antal respiratorpatienter": parseInt(entry.content), row: entry.date, "Reelle respiratorpatienter": coronaStore.Ventilator[key+22]?.content}
                         })}
                         dataKey="Estimeret antal respiratorpatienter"
                         domain={[0,1300]}
                         height={500}
                     >
+                        <Line type="monotone" dataKey={"Reelle respiratorpatienter"} stroke="green" activeDot={{r: 2}}/>
                         <ReferenceLine y="1238" stroke="red" label="Respirator kapacitet (Absolut max)" />
                     </BasicGraph>
 
@@ -185,8 +189,8 @@ function App() {
                     <div id={"Interaktiv"} style={{paddingTop: 70}}/>
                     <div>
                         Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} % <br/>
-                        R(t) = {(Math.pow(coronaStore.growthRate,2.5)).toFixed(2)} <br/>
-                        Hospitaliseringsgrad {coronaStore.hospitalizationRate*100} %
+                        R(t) = {(Math.pow(coronaStore.growthRate,2.5)).toFixed(3)} <br/>
+                        Hospitaliseringsgrad {(coronaStore.hospitalizationRate*100).toFixed(2)} %
                     </div>
                     <p>
                         <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
@@ -203,9 +207,10 @@ function App() {
                     <p>
                         <ButtonGroup toggle type="checkbox" value={coronaStore.hospitalizationRate} onChange={(e)=>{coronaStore.hospitalizationRate=e.target.value}}>
                             <ToggleButton checked={coronaStore.hospitalizationRate===0.01} type="radio" value={0.01}>1% hospitaliserede</ToggleButton>
+                            <ToggleButton checked={coronaStore.hospitalizationRate===0.0133} type="radio" value={0.0133}>1,33% hospitaliserede</ToggleButton>
+                            <ToggleButton checked={coronaStore.hospitalizationRate===0.015} type="radio" value={0.015}>1,5% hospitaliserede</ToggleButton>
                             <ToggleButton checked={coronaStore.hospitalizationRate===0.02} type="radio" value={0.02}>2% hospitaliserede</ToggleButton>
                             <ToggleButton checked={coronaStore.hospitalizationRate===0.05} type="radio" value={0.05}>5% hospitaliserede</ToggleButton>
-                            <ToggleButton checked={coronaStore.hospitalizationRate===0.10} type="radio" value={0.10}>10% hospitaliserede</ToggleButton>
                         </ButtonGroup>
                     </p>
                     <ResponsiveContainer width="90%"  height={800}>
