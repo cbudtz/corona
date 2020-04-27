@@ -94,12 +94,13 @@ function App() {
 
                     <h2>Antal kritisk syge - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
-                        data={coronaStore.Critical.map((entry) => {
-                            return {"Kritisk syge": parseInt(entry.content), row: entry.date}
+                        data={coronaStore.Critical.map((entry,key) => {
+                            return {"Kritisk syge": parseInt(entry.content), row: entry.date, "Respiratorpatienter":coronaStore.Ventilator[key]?.content}
                         })}
                         dataKey="Kritisk syge"
-                    />
-
+                    >
+                    <Line type="monotone" dataKey={"Respiratorpatienter"} stroke="green" activeDot={{r: 8}}/>
+                    </BasicGraph>
                     <div id={"Udsigt"} style={{paddingTop: 70}}/>
                     <h1> Corona Udsigten - Prognose ud fra dagens tal - Spekulativt</h1>
 
