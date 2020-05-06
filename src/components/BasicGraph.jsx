@@ -12,7 +12,7 @@ import {
 } from "recharts";
 
 export const BasicGraph = ({data,dataKey,domain,height,children}) => {
-    height = height ? height:300;
+    height = height ? height:400;
         return (
             <ResponsiveContainer width="90%" height={height}>
                 <LineChart

@@ -121,6 +121,16 @@ class CoronaStore {
     }
 
     @computed
+    get AvgHospitalized(){
+        return this.data.filter((entry)=>entry.col==="39" && entry.row!=="1")
+    }
+
+    @computed
+    get GrowthHospitalized(){
+        return this.data.filter((entry)=>entry.col==="40" && entry.row!=="1")
+    }
+
+    @computed
     get EstimatedInfected(){
         return this.data.filter((entry)=>entry.col==="10" && entry.row!=="1")
     }

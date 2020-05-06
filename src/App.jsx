@@ -86,11 +86,21 @@ function App() {
                     {/*/>*/}
                     <h2>Antal Indlagte - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
-                        data={coronaStore.Hospitalized.map((entry) => {
-                            return {"Indlagte": parseInt(entry.content), row: entry.date}
+                        data={coronaStore.Hospitalized.map((entry,key) => {
+                            return {"Indlagte": parseInt(entry.content), row: entry.date, "7 dages gns.":coronaStore.AvgHospitalized[key]?.content}
                         })}
                         dataKey="Indlagte">
+                        <Line type="monotone" dataKey={"7 dages gns."} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
+
+                    <h2>Tilvækst i indlagte - officielle danske tal - siden 1/3-2020</h2>
+                    <BasicGraph
+                        data={coronaStore.GrowthHospitalized.map((entry) => {
+                            return {"Tilvækst i indlagte - 7 dages gns.": parseInt(entry.content), row: entry.date}
+                        })}
+                        dataKey="Tilvækst i indlagte - 7 dages gns.">
+                    </BasicGraph>
+
 
                     <h2>Antal kritisk syge - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
@@ -99,7 +109,7 @@ function App() {
                         })}
                         dataKey="Kritisk syge"
                     >
-                    <Line type="monotone" dataKey={"Respiratorpatienter"} stroke="green" activeDot={{r: 8}}/>
+                    <Line type="monotone" dataKey={"Respiratorpatienter"} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
                     <div id={"Udsigt"} style={{paddingTop: 70}}/>
                     <h1> Corona Udsigten - Prognose ud fra dagens tal - Spekulativt</h1>
@@ -154,8 +164,11 @@ function App() {
                         })}
                         dataKey="Estimeret antal hospitaliserede"
                     >
-                        <Line type="monotone" dataKey={"Reelle hospitaliserede"} stroke="green" activeDot={{r: 8}}/>
+                        <Line type="monotone" dataKey={"Reelle hospitaliserede"} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
+
+
+
                     <h2>Coronaudsigten - Estimeret antal respiratorpatienter</h2>
                     <CalculationText/>
 
