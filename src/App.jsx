@@ -47,14 +47,14 @@ function App() {
                 <h5>Tal kommer fra: <a href={"https://docs.google.com/spreadsheets/d/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/edit#gid=0"}>Dette regneark</a></h5>
                 <div>
                     <div id={"Tal"} style={{paddingTop: 70}}/>
-                    <h2>Antal Smittede - officielle danske tal - siden 1/3-2020</h2>
+                    <h2>Antal smittede - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph data={coronaStore.Infected.map((entry) => {
                         return {"kumulerede tilfælde pr. dag": parseInt(entry.content), row: entry.date}
                     })}
                                 dataKey={"kumulerede tilfælde pr. dag"}
                     />
 
-                    <h2>Antal Nye Tilfælde - officielle danske tal - siden 1/3-2020</h2>
+                    <h2>Antal nye tilfælde - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
                         data={coronaStore.NewCases.map((entry) => {
                             return {"nye tilfælde pr. dag": parseInt(entry.content), row: entry.date}
@@ -62,7 +62,7 @@ function App() {
                         dataKey="nye tilfælde pr. dag"
                     >
                     </BasicGraph>
-                    <h2>Antal Døde - officielle danske tal - siden 1/3-2020</h2>
+                    <h2>Antal døde - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
                         data={coronaStore.Deaths.map((entry) => {
                             return {"kumulerede dødsfald": parseInt(entry.content), row: entry.date}
@@ -70,7 +70,7 @@ function App() {
                         })}
                         dataKey="kumulerede dødsfald"
                     />
-                    <h2>Antal Nye Dødsfald - officielle danske tal - siden 1/3-2020</h2>
+                    <h2>Antal nye dødsfald - officielle danske tal - siden 1/3-2020</h2>
 
                     <BasicGraph
                         data={coronaStore.NewDeaths.map((entry) => {
@@ -86,7 +86,7 @@ function App() {
                     {/*    })}*/}
                     {/*    dataKey="Blevet raske"*/}
                     {/*/>*/}
-                    <h2>Antal Indlagte - officielle danske tal - siden 1/3-2020</h2>
+                    <h2>Antal indlagte - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
                         data={coronaStore.Hospitalized.map((entry,key) => {
                             return {"Indlagte": parseInt(entry.content), row: entry.date, "7 dages gns.":coronaStore.AvgHospitalized[key]?.content}
