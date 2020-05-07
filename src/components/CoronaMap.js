@@ -3,9 +3,10 @@ import React from "react";
 
 const CoronaMap = ()=>{
     const properties = {
-        duration:1000,
+        duration:3000,
         autoplay:true,
         transitionDuration: 200,
+        pauseOnHover: true,
         infinite: true,
         indicators: true,
         arrows: true,
@@ -25,15 +26,19 @@ const CoronaMap = ()=>{
     const baseUrl = "https://www.sst.dk/-/media/Udgivelser/2020/Corona/Overv%C3%A5gningsdata/Data-"
     const endUrl ="/map_kommune_7_days.ashx"
 
-    return (<Fade {...properties}>
+    return (
+        <>
+        <h2>Antal smittede pr. kommune over de sidste 7 dage.</h2>
+            <div>(hold musen over for pause)</div>
+        <Fade {...properties}>
         {images.map((element)=>
             <div>
-                <h2>Antal smittede pr. kommune over de sidste 7 dage.</h2>
+
                 <img src={baseUrl + element + endUrl} alt={element}/>
                 <div>Smittede pr. {element}-2020</div>
             </div>
         )}
 
-    </Fade>)
+    </Fade></>)
 }
 export default CoronaMap;
