@@ -17,6 +17,7 @@ import {
 } from "recharts";
 import {ButtonGroup, Container, InputGroup, Nav, Navbar, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 import {BasicGraph} from "./components/BasicGraph";
+import CoronaMap from "./components/CoronaMap";
 
 function CalculationText() {
     return <>
@@ -34,6 +35,7 @@ function App() {
                 <Navbar fixed={"top"} style={{backgroundColor: "white"}}>
                     <Nav>
                         <Nav.Link href={"#Tal"}>Dagens Tal</Nav.Link>
+                        <Nav.Link href={"#Kort"}>Dagens Kort</Nav.Link>
                         <Nav.Link href={"#Udsigt"}>CoronaUdsigten</Nav.Link>
                         <Nav.Link href={"#Interaktiv"}>Den interaktive udsigt</Nav.Link>
                     </Nav>
@@ -111,9 +113,14 @@ function App() {
                     >
                     <Line type="monotone" dataKey={"Respiratorpatienter"} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
-                    <div id={"Udsigt"} style={{paddingTop: 70}}/>
-                    <h1> Corona Udsigten - Prognose ud fra dagens tal - Spekulativt</h1>
+                    <div id={"Kort"} style={{paddingTop: 70}}/>
 
+                    <CoronaMap/>
+                    <div id={"Udsigt"} style={{paddingTop: 70}}/>
+
+
+
+                    <h1> Corona Udsigten - Prognose ud fra dagens tal - Spekulativt</h1>
                     <h2>Coronaudsigten - Estimeret antal smittede</h2>
                     <CalculationText/>
                     <BasicGraph
