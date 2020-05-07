@@ -28,14 +28,14 @@ const CoronaMap = ()=>{
 
     return (
         <>
-        <h2>Antal smittede pr. kommune over de sidste 7 dage.</h2>
+        <h2>Kumuleret antal smittede pr. kommune over de sidste 7 dage.</h2>
             <div>(hold musen over for pause)</div>
         <Fade {...properties}>
         {images.map((element)=>
             <div>
 
                 <img src={baseUrl + element + endUrl} alt={element}/>
-                <div>Smittede pr. {element}-2020</div>
+                <h3>Smittede pr. {element}-2020</h3>
             </div>
         )}
 
