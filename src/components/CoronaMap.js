@@ -1,10 +1,11 @@
 import {Fade} from 'react-slideshow-image';
-import React from "react";
+import React, {useState} from "react";
 
 const CoronaMap = ()=>{
+    const [autorun, setAutorun] = useState(false)
     const properties = {
         duration:3000,
-        autoplay:true,
+        autoplay:autorun,
         transitionDuration: 200,
         pauseOnHover: true,
         infinite: true,
@@ -13,7 +14,8 @@ const CoronaMap = ()=>{
     }
     const images = [];
     let cur = new Date(2020,4,4);
-    const today = new Date();
+    let today = new Date();
+    today = today.setHours(today.getHours()-14);
     while (cur < today) {
         let day = cur.getDate()
         let month = cur.getMonth()+1
@@ -32,9 +34,9 @@ const CoronaMap = ()=>{
             <div>(hold musen over for pause)</div>
         <Fade {...properties}>
         {images.map((element)=>
-            <div>
+            <div onMouseOver={()=>setAutorun(false)} onMouseOut={()=>setAutorun(true)}>
 
-                <img src={baseUrl + element + endUrl} alt={element}/>
+                <img style={{maxWidth:"100%"}} src={baseUrl + element + endUrl} alt={element+ ": Ikke kommet endnu"}/>
                 <h3>Smittede pr. {element}-2020</h3>
             </div>
         )}

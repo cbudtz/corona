@@ -21,7 +21,7 @@ import CoronaMap from "./components/CoronaMap";
 
 function CalculationText() {
     return <>
-        <p>Beregnet ud fra 8 dage fra smitte til hospitalisering, {(100/coronaStore.FractionHospitalized).toFixed(2)}% Hospitalisering og tilvækst på {coronaStore.RegressionGrowthRate[0]} (Estimeret ud fra {coronaStore.RegressionGrowthRate[1]}) - Der er taget højde for immunitet </p>
+        <p>Beregnet ud fra 10 dage fra smitte til hospitalisering, {(100/coronaStore.FractionHospitalized).toFixed(2)}% Hospitalisering og tilvækst på {coronaStore.RegressionGrowthRate[0]} (Estimeret ud fra {coronaStore.RegressionGrowthRate[1]}) - Der er taget højde for immunitet </p>
         <h5>Advarsel - Spekulativt</h5>
     </>;
 }
