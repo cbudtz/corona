@@ -27,7 +27,7 @@ const CoronaMap = ()=>{
     }
 
     const baseUrl = "https://www.sst.dk/-/media/Udgivelser/2020/Corona/Overv%C3%A5gningsdata/Data-"
-    const coronaUrl = "https://cbudtz.github.io/corona/map_kommune_7_days"
+    const coronaUrl = "https://cbudtz.github.io/corona/images/map_kommune_7_days"
     const coronaEndUrl =".png"
     const endUrl ="/map_kommune_7_days.ashx"
 
