@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "82fd0d053fde68bc23736bb80e2adc8b",
+    "revision": "fb9b6f05afc0eb2271d8084cad1dc42f",
     "url": "/corona/index.html"
   },
   {
-    "revision": "0b9605fbc1201a061651",
-    "url": "/corona/static/css/2.56a311ef.chunk.css"
+    "revision": "ec45f3c718b401ed6873",
+    "url": "/corona/static/css/2.3afee639.chunk.css"
   },
   {
-    "revision": "c3ad465c939463eaa8eb",
+    "revision": "d47b0cda0367489c58b3",
     "url": "/corona/static/css/main.d1b05096.chunk.css"
   },
   {
-    "revision": "0b9605fbc1201a061651",
-    "url": "/corona/static/js/2.55942199.chunk.js"
+    "revision": "ec45f3c718b401ed6873",
+    "url": "/corona/static/js/2.9904eaad.chunk.js"
   },
   {
     "revision": "0229f2113b78559ca1daeb1dd663a5a5",
-    "url": "/corona/static/js/2.55942199.chunk.js.LICENSE.txt"
+    "url": "/corona/static/js/2.9904eaad.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c3ad465c939463eaa8eb",
-    "url": "/corona/static/js/main.1254f08e.chunk.js"
+    "revision": "d47b0cda0367489c58b3",
+    "url": "/corona/static/js/main.e937633e.chunk.js"
   },
   {
     "revision": "749b860e5075433fead8",
