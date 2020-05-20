@@ -1,17 +1,9 @@
 import {Fade} from 'react-slideshow-image';
 import React, {useState} from "react";
+import {coronaStore} from "../stores/CoronaStore";
 
 const CoronaMap = ()=>{
-    const [autorun, setAutorun] = useState(false)
-    const properties = {
-        duration:3000,
-        autoplay:autorun,
-        transitionDuration: 200,
-        pauseOnHover: true,
-        infinite: true,
-        indicators: true,
-        arrows: true,
-    }
+
     const images = [];
     let cur = new Date(2020,4,4);
     let today = new Date();
@@ -25,6 +17,16 @@ const CoronaMap = ()=>{
 
         cur.setDate(cur.getDate()+1);
     }
+    const properties = {
+        duration:3000,
+        defaultIndex:images.length-1,
+        autoplay:false,
+        transitionDuration: 200,
+        pauseOnHover: true,
+        infinite: true,
+        indicators: true,
+        arrows: true,
+    }
 
     const baseUrl = "https://www.sst.dk/-/media/Udgivelser/2020/Corona/Overv%C3%A5gningsdata/Data-"
     const coronaUrl = "https://raw.githubusercontent.com/cbudtz/corona/master/images/map_kommune_7_days"
@@ -35,11 +37,9 @@ const CoronaMap = ()=>{
     return (
         <>
         <h2>Kumuleret antal smittede pr. kommune over de sidste 7 dage.</h2>
-            <div>(hold musen over for pause)</div>
         <Fade {...properties}>
         {images.map((element)=>
-            <div onMouseOver={()=>setAutorun(false)} onMouseOut={()=>setAutorun(true)}>
-
+            <div >
                 <img style={{maxWidth:"100%"}} src={coronaUrl + element + coronaEndUrl} alt={element+ ": Ikke kommet endnu"}/>
                 <h3>Smittede pr. {element}-2020</h3>
             </div>
