@@ -1,5 +1,4 @@
 import React from "react";
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {coronaStore} from './stores/CoronaStore';
@@ -15,7 +14,7 @@ import {
     XAxis,
     YAxis
 } from "recharts";
-import {ButtonGroup, Container, InputGroup, Nav, Navbar, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
+import {ButtonGroup, Container, Nav, Navbar, ToggleButton} from "react-bootstrap";
 import {BasicGraph} from "./components/BasicGraph";
 import CoronaMap from "./components/CoronaMap";
 
