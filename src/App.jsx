@@ -77,6 +77,21 @@ function App() {
                         })}
                         dataKey="Nye dødsfald pr. dag"
                     />
+                    <h2>Patienter i remission - officielle danske tal - siden 1/3-2020</h2>
+                    <BasicGraph
+                        data={coronaStore.Remission.map((entry) => {
+                            return {"Overstået infektion": parseInt(entry.content), row: entry.date}
+                        })}
+                        dataKey="Overstået infektion"
+                    />
+
+                    <h2>Nuværende antal inficerede - officielle danske tal - siden 1/3-2020</h2>
+                    <BasicGraph
+                        data={coronaStore.Active.map((entry) => {
+                            return {"Aktiv Infektion": parseInt(entry.content), row: entry.date}
+                        })}
+                        dataKey="Aktiv Infektion"
+                    />
 
                     {/*<h2>Antal Raskmeldte - officielle danske tal - siden 1/3-2020</h2>*/}
                     {/*<BasicGraph*/}
