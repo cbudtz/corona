@@ -26,6 +26,7 @@ export const BasicGraph = ({data,dataKey,domain,height,children}) => {
                     <ReferenceLine x="15/4" stroke="blue" label={{ value: 'vuggestuer, børnehaver og 0-5 klasse åbner', angle: -45}}/>
                     <ReferenceLine x="20/4" stroke="blue" label={{ value: 'Frisører, massører, mfl åbner', angle: -45}}/>
                     <ReferenceLine x="18/5" stroke="blue" label={{ value: 'Fase 2 genåbning: restauranter, storcentre, mfl', angle: -45}}/>
+                    <ReferenceLine x="17/6" stroke="green" label={{ value: 'Ny opgørelsesmetode for indlagte', angle: -45}}/>
                     <Line type="monotone" dataKey={dataKey} stroke="#8884d8" activeDot={{r: 2}}/>
                     {children}
                 </LineChart>
