@@ -5,7 +5,7 @@ import {coronaStore} from "../stores/CoronaStore";
 const CoronaMap = ()=>{
 
     const images = [];
-    let cur = new Date(2020,4,4);
+    let cur = new Date(2020,4,5);
     let today = new Date();
     today = today.setHours(today.getHours()-14);
     while (cur < today) {
@@ -15,7 +15,7 @@ const CoronaMap = ()=>{
         if (month<10){ month = "0" + month}
         images.push(""+day+month);
 
-        cur.setDate(cur.getDate()+1);
+        cur.setDate(cur.getDate()+7);
     }
     const properties = {
         duration:3000,
