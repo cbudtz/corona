@@ -131,6 +131,11 @@ class CoronaStore {
     }
 
     @computed
+    get AvgNewInfected(){
+        return this.data.filter((entry)=>entry.col==="41" && entry.row!=="1")
+    }
+
+    @computed
     get EstimatedInfected(){
         return this.data.filter((entry)=>entry.col==="10" && entry.row!=="1")
     }
@@ -191,7 +196,7 @@ class CoronaStore {
             newInfected: 0,
             indlagte:0
         });
-        for (let i = 0; i < 90; i++) {
+        for (let i = 0; i < 120; i++) {
             let prevInfected = infected;
             infected = infected*this.growthRate*(1-(infected/(6000000-infected)));
             let prevHospitalized = hospitalized;

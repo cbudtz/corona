@@ -55,11 +55,12 @@ function App() {
 
                     <h2>Antal nye tilfælde - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
-                        data={coronaStore.NewCases.map((entry) => {
-                            return {"nye tilfælde pr. dag": parseInt(entry.content), row: entry.date}
+                        data={coronaStore.NewCases.map((entry,key) => {
+                            return {"nye tilfælde pr. dag": parseInt(entry.content), row: entry.date, "7 dages gns.":coronaStore.AvgNewInfected[key-4]?.content}
                         })}
                         dataKey="nye tilfælde pr. dag"
                     >
+                        <Line type="monotone" dataKey={"7 dages gns."} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
                     <h2>Antal døde - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
@@ -103,7 +104,7 @@ function App() {
                     <h2>Antal indlagte - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
                         data={coronaStore.Hospitalized.map((entry,key) => {
-                            return {"Indlagte": parseInt(entry.content), row: entry.date, "7 dages gns.":coronaStore.AvgHospitalized[key]?.content}
+                            return {"Indlagte": parseInt(entry.content), row: entry.date, "7 dages gns.":coronaStore.AvgHospitalized[key+3]?.content}
                         })}
                         dataKey="Indlagte">
                         <Line type="monotone" dataKey={"7 dages gns."} stroke="green" activeDot={{r: 2}}/>
