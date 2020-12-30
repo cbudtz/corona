@@ -34,7 +34,7 @@ function App() {
                 <Navbar fixed={"top"} style={{backgroundColor: "white"}}>
                     <Nav>
                         <Nav.Link href={"#Tal"}>Dagens Tal</Nav.Link>
-                        <Nav.Link href={"#Kort"}>Dagens Kort</Nav.Link>
+                        {/*<Nav.Link href={"#Kort"}>Dagens Kort</Nav.Link>*/}
                         <Nav.Link href={"#Udsigt"}>CoronaUdsigten</Nav.Link>
                         <Nav.Link href={"#Interaktiv"}>Den interaktive udsigt</Nav.Link>
                     </Nav>
@@ -47,11 +47,14 @@ function App() {
                 <div>
                     <div id={"Tal"} style={{paddingTop: 70}}/>
                     <h2>Antal smittede - officielle danske tal - siden 1/3-2020</h2>
-                    <BasicGraph data={coronaStore.Infected.map((entry) => {
-                        return {"kumulerede tilfælde pr. dag": parseInt(entry.content), row: entry.date}
+                    <BasicGraph data={coronaStore.Infected.map((entry,key) => {
+                        return {"Kumulerede tilfælde pr. dag": parseInt(entry.content), row: entry.date,"Kumulerede vaccinerede":coronaStore.Vaccinated[key]?.content || 0}
                     })}
-                                dataKey={"kumulerede tilfælde pr. dag"}
-                    />
+                                dataKey={"Kumulerede tilfælde pr. dag"}
+
+                    >
+                        <Line type="monotone" dataKey={"Kumulerede vaccinerede"} stroke="green" activeDot={{r:2}}/>
+                    </BasicGraph>
 
                     <h2>Antal nye tilfælde - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
@@ -126,11 +129,11 @@ function App() {
                         })}
                         dataKey="Kritisk syge"
                     >
-                    <Line type="monotone" dataKey={"Respiratorpatienter"} stroke="green" activeDot={{r: 2}}/>
+                        <Line type="monotone" dataKey={"Respiratorpatienter"} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
                     <div id={"Kort"} style={{paddingTop: 70}}/>
 
-                    <CoronaMap/>
+                    {/*<CoronaMap/>*/}
                     <div id={"Udsigt"} style={{paddingTop: 70}}/>
 
 
@@ -185,6 +188,7 @@ function App() {
                             return {"Estimeret antal hospitaliserede": parseInt(entry.content), row: entry.date, "Reelle hospitaliserede": coronaStore.Hospitalized[key+22]?.content}
                         })}
                         dataKey="Estimeret antal hospitaliserede"
+                        domain={[0,1500]}
                     >
                         <Line type="monotone" dataKey={"Reelle hospitaliserede"} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
@@ -200,70 +204,70 @@ function App() {
                         })}
                         dataKey="Estimeret antal respiratorpatienter"
                         domain={[0,1300]}
-                        height={500}
+                        height={800}
                     >
                         <Line type="monotone" dataKey={"Reelle respiratorpatienter"} stroke="green" activeDot={{r: 2}}/>
                         <ReferenceLine y="1238" stroke="red" label="Respirator kapacitet (Absolut max)" />
                     </BasicGraph>
 
-                    <h2>Coronaudsigten - Den interaktive </h2>
-                    <p align={"left"}>Afprøv betydningen af at reducere Vækst/smitteraten
-                        <ul>
-                            <li>1.43 er raten i nye indlæggelser fra 14-19/3 - Før corona tiltag</li>
-                        </ul>
-                        <ul>
-                            <li>Der er rapporteret hospitaliseringsgrader mellem 1% og 10% af smittede</li>
-                            <li>Der er beregnet ud fra gennemsnitligt 14 dages indlæggelse</li>
-                            <li>Der kan ses et negativt antal indlæggelser ved overgang fra faktuelle tal til estimater - det er et artefakt fra når reelle indlæggelser overstiger estimerede
-                            </li>
-                        </ul>
-                        <i>Kun til illustration - Se i øvrigt <br/>
-                            <h5><a href={"http://gabgoh.github.io/COVID/index.html?fbclid=IwAR2bEVDY-nIDvqAbQ-siUthGSxlk5TL2QscdX8VTp004nnv6dw9Yh0XRGIU"}>Epidemic calculator</a></h5>
-                            , for et mere avanceret værktøj
-                        </i>
-                    </p>
-                    <div id={"Interaktiv"} style={{paddingTop: 70}}/>
-                    <div>
-                        Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} % <br/>
-                        R(t) = {(Math.pow(coronaStore.growthRate,2.5)).toFixed(3)} <br/>
-                        Hospitaliseringsgrad {(coronaStore.hospitalizationRate*100).toFixed(2)} %
-                    </div>
-                    <p>
-                        <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
+                    {/*<h2>Coronaudsigten - Den interaktive </h2>*/}
+                    {/*<p align={"left"}>Afprøv betydningen af at reducere Vækst/smitteraten*/}
+                    {/*    <ul>*/}
+                    {/*        <li>1.43 er raten i nye indlæggelser fra 14-19/3 - Før corona tiltag</li>*/}
+                    {/*    </ul>*/}
+                    {/*    <ul>*/}
+                    {/*        <li>Der er rapporteret hospitaliseringsgrader mellem 1% og 10% af smittede</li>*/}
+                    {/*        <li>Der er beregnet ud fra gennemsnitligt 14 dages indlæggelse</li>*/}
+                    {/*        <li>Der kan ses et negativt antal indlæggelser ved overgang fra faktuelle tal til estimater - det er et artefakt fra når reelle indlæggelser overstiger estimerede*/}
+                    {/*        </li>*/}
+                    {/*    </ul>*/}
+                    {/*    <i>Kun til illustration - Se i øvrigt <br/>*/}
+                    {/*        <h5><a href={"http://gabgoh.github.io/COVID/index.html?fbclid=IwAR2bEVDY-nIDvqAbQ-siUthGSxlk5TL2QscdX8VTp004nnv6dw9Yh0XRGIU"}>Epidemic calculator</a></h5>*/}
+                    {/*        , for et mere avanceret værktøj*/}
+                    {/*    </i>*/}
+                    {/*</p>*/}
+                    {/*<div id={"Interaktiv"} style={{paddingTop: 70}}/>*/}
+                    {/*<div>*/}
+                    {/*    Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} % <br/>*/}
+                    {/*    R(t) = {(Math.pow(coronaStore.growthRate,2.5)).toFixed(3)} <br/>*/}
+                    {/*    Hospitaliseringsgrad {(coronaStore.hospitalizationRate*100).toFixed(2)} %*/}
+                    {/*</div>*/}
+                    {/*<p>*/}
+                    {/*    <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>*/}
 
-                            <ToggleButton checked={coronaStore.growthRate===regGrowth} type="radio" value={regGrowth}>Nuværende Vækstrate {regGrowth}</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.01} type="radio" value={1.01}>1.01</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.02} type="radio" value={1.02}>1.02</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.05} type="radio" value={1.05}>1.05</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.08} type="radio" value={1.08}>1.08</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>1.10</ToggleButton>
-                            <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>1.43</ToggleButton>
-                        </ButtonGroup>
-                    </p>
-                    <p>
-                        <ButtonGroup toggle type="checkbox" value={coronaStore.hospitalizationRate} onChange={(e)=>{coronaStore.hospitalizationRate=e.target.value}}>
-                            <ToggleButton checked={coronaStore.hospitalizationRate===0.01} type="radio" value={0.01}>1% hospitaliserede</ToggleButton>
-                            <ToggleButton checked={coronaStore.hospitalizationRate===0.0133} type="radio" value={0.0133}>1,33% hospitaliserede</ToggleButton>
-                            <ToggleButton checked={coronaStore.hospitalizationRate===0.015} type="radio" value={0.015}>1,5% hospitaliserede</ToggleButton>
-                            <ToggleButton checked={coronaStore.hospitalizationRate===0.02} type="radio" value={0.02}>2% hospitaliserede</ToggleButton>
-                            <ToggleButton checked={coronaStore.hospitalizationRate===0.05} type="radio" value={0.05}>5% hospitaliserede</ToggleButton>
-                        </ButtonGroup>
-                    </p>
-                    <ResponsiveContainer width="90%"  height={800}>
-                        <LineChart
-                            data={coronaStore.InteractiveNumbers}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="dato" />
-                            <YAxis domain={[0, 5000]}/>
-                            <Tooltip />
-                            <Legend />
-                            {/*<ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />*/}
-                            <Line type="monotone" dataKey={"kumuleretHospitaliserede"} stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Line type="monotone" dataKey={"nyeIndlæggelser"} stroke="yellow" activeDot={{ r: 8 }} />
-                            <Line type="monotone" dataKey={"indlagte"} stroke="green" activeDot={{ r: 8 }} />
-                            <Line type="monotone" dataKey={"respiratorPt"} stroke="red" activeDot={{ r: 8 }} />
-                        </LineChart>
-                    </ResponsiveContainer>
+                    {/*        <ToggleButton checked={coronaStore.growthRate===regGrowth} type="radio" value={regGrowth}>Nuværende Vækstrate {regGrowth}</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.growthRate===1.01} type="radio" value={1.01}>1.01</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.growthRate===1.02} type="radio" value={1.02}>1.02</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.growthRate===1.05} type="radio" value={1.05}>1.05</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.growthRate===1.08} type="radio" value={1.08}>1.08</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.growthRate===1.1} type="radio" value={1.1}>1.10</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.growthRate===1.43} type="radio" value={1.43}>1.43</ToggleButton>*/}
+                    {/*    </ButtonGroup>*/}
+                    {/*</p>*/}
+                    {/*<p>*/}
+                    {/*    <ButtonGroup toggle type="checkbox" value={coronaStore.hospitalizationRate} onChange={(e)=>{coronaStore.hospitalizationRate=e.target.value}}>*/}
+                    {/*        <ToggleButton checked={coronaStore.hospitalizationRate===0.01} type="radio" value={0.01}>1% hospitaliserede</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.hospitalizationRate===0.0133} type="radio" value={0.0133}>1,33% hospitaliserede</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.hospitalizationRate===0.015} type="radio" value={0.015}>1,5% hospitaliserede</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.hospitalizationRate===0.02} type="radio" value={0.02}>2% hospitaliserede</ToggleButton>*/}
+                    {/*        <ToggleButton checked={coronaStore.hospitalizationRate===0.05} type="radio" value={0.05}>5% hospitaliserede</ToggleButton>*/}
+                    {/*    </ButtonGroup>*/}
+                    {/*</p>*/}
+                    {/*<ResponsiveContainer width="90%"  height={800}>*/}
+                    {/*    <LineChart*/}
+                    {/*        data={coronaStore.InteractiveNumbers}>*/}
+                    {/*        <CartesianGrid strokeDasharray="3 3" />*/}
+                    {/*        <XAxis dataKey="dato" />*/}
+                    {/*        <YAxis domain={[0, 5000]}/>*/}
+                    {/*        <Tooltip />*/}
+                    {/*        <Legend />*/}
+                    {/*        /!*<ReferenceLine x="13/3" stroke="red" label="Ny grænse for testning" />*!/*/}
+                    {/*        <Line type="monotone" dataKey={"kumuleretHospitaliserede"} stroke="#8884d8" activeDot={{ r: 8 }} />*/}
+                    {/*        <Line type="monotone" dataKey={"nyeIndlæggelser"} stroke="yellow" activeDot={{ r: 8 }} />*/}
+                    {/*        <Line type="monotone" dataKey={"indlagte"} stroke="green" activeDot={{ r: 8 }} />*/}
+                    {/*        <Line type="monotone" dataKey={"respiratorPt"} stroke="red" activeDot={{ r: 8 }} />*/}
+                    {/*    </LineChart>*/}
+                    {/*</ResponsiveContainer>*/}
                 </div>
             </Container>
         </div>

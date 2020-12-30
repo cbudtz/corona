@@ -164,6 +164,11 @@ class CoronaStore {
     }
 
     @computed
+    get Vaccinated(){
+        return this.data.filter((entry)=>entry.col==="24" && entry.row!=="1")
+    }
+
+    @computed
     get RegressionGrowthRate(){
         let growthRate = this.data.filter((entry)=>entry.col=="17")[1]?.content;
         let growthText = this.data.filter((entry)=>entry.col=="18")[1]?.content;
