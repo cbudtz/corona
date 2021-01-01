@@ -25,7 +25,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-/*! decimal.js-light v2.5.0 https://github.com/MikeMcl/decimal.js-light/LICENCE */
+/*! decimal.js-light v2.5.1 https://github.com/MikeMcl/decimal.js-light/LICENCE */
 
 /** @license React v0.19.1
  * scheduler.production.min.js
@@ -36,7 +36,7 @@ and limitations under the License.
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v16.13.1
+/** @license React v16.14.0
  * react-dom.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -45,7 +45,7 @@ and limitations under the License.
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v16.13.1
+/** @license React v16.14.0
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.

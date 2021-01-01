@@ -42,7 +42,7 @@ function App() {
                 </Navbar>
             </Container>
 
-            <Container style={{marginTop: 70}}>
+            <Container fluid style={{marginTop: 70}}>
                 <h5>Tal kommer fra: <a href={"https://docs.google.com/spreadsheets/d/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/edit#gid=0"}>Dette regneark</a></h5>
                 <div>
                     <div id={"Tal"} style={{paddingTop: 70}}/>
