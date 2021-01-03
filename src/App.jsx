@@ -147,13 +147,13 @@ function App() {
                         })}
                         dataKey="Estimeret antal smittede"
                     />
-                    <h2>Coronaudsigten - Estimeret antal nye smittede</h2>
+                    <h2>Coronaudsigten - Estimeret tilvækst i antal smittede</h2>
                     <CalculationText/>
                     <BasicGraph
                         data={coronaStore.EstimatedNewInfected.map((entry) => {
-                            return {"Estimeret antal nye smittede": parseInt(entry.content), row: entry.date}
+                            return {"Estimeret tilvækst i antal smittede": parseInt(entry.content), row: entry.date}
                         })}
-                        dataKey="Estimeret antal nye smittede"
+                        dataKey="Estimeret tilvækst i antal smittede"
                     >
                     </BasicGraph>
 
@@ -167,14 +167,14 @@ function App() {
                     {/*>*/}
                     {/*</BasicGraph>*/}
 
-                    <h2>Coronaudsigten - Estimeret Antal Nye Hospitaliserede</h2>
+                    <h2>Coronaudsigten - Estimeret tilvækst i antal hospitaliserede</h2>
                     <CalculationText/>
 
                     <BasicGraph
                         data={coronaStore.EstimatedNewHospitalized.map((entry) => {
-                            return {"Estimeret antal nye hospitaliserede": parseInt(entry.content), row: entry.date}
+                            return {"Estimeret tilvækst i antal hospitaliserede": parseInt(entry.content), row: entry.date}
                         })}
-                        dataKey="Estimeret antal nye hospitaliserede"
+                        dataKey="Estimeret tilvækst i antal hospitaliserede"
                     >
 
                     </BasicGraph>
