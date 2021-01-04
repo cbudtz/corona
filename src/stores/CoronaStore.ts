@@ -167,6 +167,14 @@ class CoronaStore {
     get Vaccinated(){
         return this.data.filter((entry)=>entry.col==="24" && entry.row!=="1")
     }
+    @computed
+    get BritishCumulatedInfected(){
+        return this.data.filter((entry)=>entry.col==="28" && entry.row!=="1")
+    }
+    @computed
+    get BritishEstimatedCumulatedInfected(){
+        return this.data.filter((entry)=>entry.col==="29" && entry.row!=="1")
+    }
 
     @computed
     get RegressionGrowthRate(){
