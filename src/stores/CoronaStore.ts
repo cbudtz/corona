@@ -198,44 +198,33 @@ class CoronaStore {
         if(!start){
             return[{}];
         }
-        console.log(start);
-        let hospitalized = parseInt(start.content);
-        let infected = hospitalized*1/this.hospitalizationRate;
+        console.log("START");
+        console.log(JSON.stringify(start.content));
+
         data.push({
-            dato: 0,
-            kumuleretHospitaliserede:hospitalized,
-            nyeIndlæggelser:0,
-            infected:infected,
-            newInfected: 0,
-            indlagte:0
+            dato: new Date().getDate()+ "/" + (new Date().getMonth()+1),
+            infected:Number(this.Infected[this.Infected.length-1].content),
+            newCases: Number(this.NewCases[this.NewCases.length-1].content),
+            indlagte:Number(start.content),
+            respiratorPt: Number(this.Ventilator[this.Ventilator.length-1].content)
         });
+        console.log(data[0]);
         for (let i = 0; i < 120; i++) {
-            let prevInfected = infected;
-            infected = infected*this.growthRate*(1-(infected/(6000000-infected)));
-            let prevHospitalized = hospitalized;
-            if (data[i-latency]){
-                hospitalized = data[i-latency].infected*this.hospitalizationRate;
-            }
+
             let date = new Date();
-            date.setDate(date.getDate()+i-latency);
+            date.setDate(date.getDate()+i);
+            // @ts-ignore
             let newPoint = {
                 dato: date.getDate() + "/" + (date.getMonth()+1) ,
-                kumuleretHospitaliserede:Math.round(hospitalized),
-                nyeIndlæggelser: Math.round(hospitalized-prevHospitalized),
-                infected:infected,
-                newInfected: infected-prevInfected,
-                indlagte: parseInt(start.content),
-                respiratorPt: 0
+                infected: data[i].infected + data[i].newCases*this.growthRate,
+                newCases: data[i].newCases*this.growthRate* ((5800000-data[i].infected)/(5800000-Number(this.Vaccinated[this.Vaccinated.length-1].content))), //Correction for available for infection
+                indlagte: data[i].indlagte*this.growthRate* ((5800000-data[i].infected)/(5800000-Number(this.Vaccinated[this.Vaccinated.length-1].content))),
+                respiratorPt: data[i].respiratorPt*this.growthRate * ((5800000-data[i].infected)/(5800000-Number(this.Vaccinated[this.Vaccinated.length-1].content)))
 
             };
-            let indlagte = 0;
-            for (let j = i;j>0 && i-j<14;j--) {
-                newPoint.indlagte += data[j].nyeIndlæggelser;
-            }
-            newPoint.respiratorPt = Math.round(newPoint.indlagte*0.20);
             data.push(newPoint);
         }
-        return data.splice(latency+1);
+        return data;
     }
 
     @computed
