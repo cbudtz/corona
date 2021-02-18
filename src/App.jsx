@@ -46,12 +46,14 @@ function App() {
                 <div>
                     <div id={"Tal"} style={{paddingTop: 70}}/>
                     <h2>Antal smittede - officielle danske tal - siden 1/3-2020</h2>
-                    <BasicGraph data={coronaStore.Infected.map((entry,key) => {
+                    <BasicGraph domain={[0,500000]}
+                        data={coronaStore.Infected.map((entry,key) => {
                         return {"Kumulerede tilfælde pr. dag": parseInt(entry.content), row: entry.date,
                             "Kumulerede vaccinerede":coronaStore.Vaccinated[key]?.content || 0}
                     })}
                                 dataKey={"Kumulerede tilfælde pr. dag"}
                     >
+
                         <Line type="monotone" dataKey={"Kumulerede vaccinerede"} stroke="green" activeDot={{r:2}}/>
                     </BasicGraph>
 

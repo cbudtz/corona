@@ -10,11 +10,12 @@ import {
     XAxis,
     YAxis
 } from "recharts";
+import {coronaStore} from "../stores/CoronaStore";
 
 export const BasicGraph = ({data,dataKey,domain,height,children}) => {
-    height = height ? height:400;
+    height = height ? height:600;
         return (
-            <ResponsiveContainer width="90%" height={height}>
+            <ResponsiveContainer width="90%" height={height} minWidth={2*coronaStore.EstimatedInfected.length}>
                 <LineChart
                     data={data}>
                     <CartesianGrid strokeDasharray="3 3"/>
