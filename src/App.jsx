@@ -124,7 +124,8 @@ function App() {
                     <h2>Antal kritisk syge - officielle danske tal - siden 1/3-2020</h2>
                     <BasicGraph
                         data={coronaStore.Critical.map((entry,key) => {
-                            return {"Kritisk syge": parseInt(entry.content), row: entry.date, "Respiratorpatienter":coronaStore.Ventilator[key]?.content}
+                            return {"Kritisk syge": parseInt(entry.content), row: entry.date,
+                                "Respiratorpatienter":coronaStore.Ventilator[key]?.content}
                         })}
                         dataKey="Kritisk syge"
                     >
@@ -141,11 +142,16 @@ function App() {
                     <h2>Coronaudsigten - Estimeret antal smittede</h2>
                     <CalculationText/>
                     <BasicGraph
-                        data={coronaStore.EstimatedInfected.map((entry) => {
-                            return {"Estimeret antal smittede": parseInt(entry.content), row: entry.date}
+                        data={coronaStore.EstimatedInfected.map((entry, key) => {
+                            const diff = coronaStore.EstimatedInfected.length-coronaStore.EstimatedB117Infected.length
+                            return {"Estimeret antal smittede": parseInt(entry.content), row: entry.date,
+                            "Estimeret antal B117 smittede":coronaStore.EstimatedB117Infected[key-diff]?.content || null}
                         })}
                         dataKey="Estimeret antal smittede"
-                    />
+                    >
+                        <Line type="monotone" dataKey={"Estimeret antal B117 smittede"} stroke="green" activeDot={{r: 2}}/>
+                    </BasicGraph>
+
                     <h2>Coronaudsigten - Estimeret tilvækst i antal smittede</h2>
                     <CalculationText/>
                     <BasicGraph

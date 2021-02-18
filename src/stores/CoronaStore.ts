@@ -141,6 +141,11 @@ class CoronaStore {
     }
 
     @computed
+    get EstimatedB117Infected(){
+        return this.data.filter((entry)=>entry.col==="34" && entry.row!=="1");
+    }
+
+    @computed
     get EstimatedNewInfected(){
         return this.data.filter((entry)=>entry.col==="11" && entry.row!=="1")
     }
