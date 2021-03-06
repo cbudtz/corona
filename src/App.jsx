@@ -26,6 +26,8 @@ function CalculationText() {
 
 function App() {
     let data = coronaStore.data;
+    const maxVacc = Math.max(...coronaStore.Vaccinated?.map((e)=>e.content));
+    console.log(maxVacc);
     const regGrowth = parseFloat(coronaStore.RegressionGrowthRate[0].replace(",","."));
     return (
         <div className="App">
@@ -46,7 +48,7 @@ function App() {
                 <div>
                     <div id={"Tal"} style={{paddingTop: 70}}/>
                     <h2>Antal smittede - officielle danske tal - siden 1/3-2020</h2>
-                    <BasicGraph domain={[0,500000]}
+                    <BasicGraph domain={[0,maxVacc]}
                         data={coronaStore.Infected.map((entry,key) => {
                         return {"Kumulerede tilfælde pr. dag": parseInt(entry.content), row: entry.date,
                             "Kumulerede vaccinerede":coronaStore.Vaccinated[key]?.content || 0}
@@ -218,7 +220,7 @@ function App() {
                     </BasicGraph>
 
                     <h2>Coronaudsigten - Den interaktive </h2>
-                    <p align={"left"}>Afprøv betydningen af at reducere Vækst/smitteraten
+                    <div align={"left"}>Afprøv betydningen af at reducere Vækst/smitteraten
                         <ul>
                             <li>Der er rapporteret hospitaliseringsgrader mellem 1% og 10% af smittede</li>
                             <li>Der er beregnet ud fra gennemsnitligt 14 dages indlæggelse</li>
@@ -229,22 +231,22 @@ function App() {
                             <h5><a href={"http://gabgoh.github.io/COVID/index.html?fbclid=IwAR2bEVDY-nIDvqAbQ-siUthGSxlk5TL2QscdX8VTp004nnv6dw9Yh0XRGIU"}>Epidemic calculator</a></h5>
                             , for et mere avanceret værktøj
                         </i>
-                    </p>
+                    </div>
                     <div id={"Interaktiv"} style={{paddingTop: 70}}/>
                     <div>
                         Tilvækst pr. dag {Math.round((coronaStore.growthRate-1)*100)} % <br/>
                         R(t) = {(Math.pow(coronaStore.growthRate,4.7)).toFixed(3)} <br/>
                     </div>
-                    <p>
+                    <div>
                         <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
 
-                            <ToggleButton checked={coronaStore.growthRate===regGrowth} type="radio" value={regGrowth}>Nuværende Vækstrate {regGrowth}</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===regGrowth?regGrowth:1} type="radio" value={regGrowth?regGrowth:1}>Nuværende Vækstrate {regGrowth}</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.075} type="radio" value={1.02}>1.02 - R(t):1.10</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.10} type="radio" value={1.03}>1.03 - R(t):1.15</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.05} type="radio" value={1.05}>1.05 - R(t):1.26</ToggleButton>
 
                         </ButtonGroup>
-                    </p>
+                    </div>
                     <ResponsiveContainer width="90%"  height={800}>
                         <LineChart
                             data={coronaStore.InteractiveNumbers}>
