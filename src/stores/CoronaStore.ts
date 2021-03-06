@@ -47,8 +47,8 @@ class CoronaStore {
     private structureData(json: { feed: { entry: any[]; }; }) {
         this.structuredData = [];
         let rowindices: string[] = [];
-        let forEach = json.feed.entry.forEach((entry: any) => {
-            if (entry.gs$cell.row == 1) {
+        json.feed.entry.forEach((entry: any) => {
+            if (entry.gs$cell.row === 1) {
                 rowindices[parseInt(entry.gs$cell.col)]=entry.content.$t;
             } else {
                 if (parseInt(entry.gs$cell.col)===1){
@@ -183,8 +183,8 @@ class CoronaStore {
 
     @computed
     get RegressionGrowthRate(){
-        let growthRate = this.data.filter((entry)=>entry.col=="17")[1]?.content;
-        let growthText = this.data.filter((entry)=>entry.col=="18")[1]?.content;
+        let growthRate = this.data.filter((entry)=>entry.col==="17")[1]?.content;
+        let growthText = this.data.filter((entry)=>entry.col==="18")[1]?.content;
         if (growthRate){
             return [growthRate,growthText];
         }
@@ -192,19 +192,18 @@ class CoronaStore {
     }
     @computed
     get FractionHospitalized(){
-        return this.data.filter((entry)=>entry.col=="16")[1]?.content ?? "Loading";
+        return this.data.filter((entry)=>entry.col==="16")[1]?.content ?? "Loading";
     }
 
     @computed
     get InteractiveNumbers(){
-        const latency =10;
         let data = [];
         const start = this.Hospitalized[this.Hospitalized.length-1]
         if(!start){
             return[{}];
         }
-        console.log("START");
-        console.log(JSON.stringify(start.content));
+        // console.log("START");
+        // console.log(JSON.stringify(start.content));
 
         data.push({
             dato: new Date().getDate()+ "/" + (new Date().getMonth()+1),
@@ -213,7 +212,7 @@ class CoronaStore {
             indlagte:Number(start.content),
             respiratorPt: Number(this.Ventilator[this.Ventilator.length-1].content)
         });
-        console.log(data[0]);
+        // console.log(data[0]);
         for (let i = 0; i < 120; i++) {
 
             let date = new Date();

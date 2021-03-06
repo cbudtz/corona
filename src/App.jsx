@@ -25,9 +25,7 @@ function CalculationText() {
 }
 
 function App() {
-    let data = coronaStore.data;
     const maxVacc = Math.max(...coronaStore.Vaccinated?.map((e)=>e.content));
-    console.log(maxVacc);
     const regGrowth = parseFloat(coronaStore.RegressionGrowthRate[0].replace(",","."));
     return (
         <div className="App">
