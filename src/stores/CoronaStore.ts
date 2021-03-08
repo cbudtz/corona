@@ -35,7 +35,7 @@ class CoronaStore {
                 let now;
                 now = new Date(date.valueOf());
                 now.setDate(now.getDate()+parseInt(entry.gs$cell.row)-1);
-                const dataDate = now.getDate() + "/" + (now.getMonth()+1);
+                const dataDate = now.getDate() + "/" + (now.getMonth()+1)+ "/" + now.getFullYear().toString().substr(2);
                 return {date: dataDate, content:entry.content.$t,row:entry.gs$cell.row,col:entry.gs$cell.col}
             }
         );

@@ -238,7 +238,7 @@ function App() {
                     <div>
                         <ButtonGroup toggle type="checkbox" value={coronaStore.growthRate} onChange={(e)=>{coronaStore.growthRate=e.target.value}}>
 
-                            <ToggleButton checked={coronaStore.growthRate===regGrowth?regGrowth:1} type="radio" value={regGrowth?regGrowth:1}>Nuværende Vækstrate {regGrowth}</ToggleButton>
+                            <ToggleButton checked={coronaStore.growthRate===regGrowth} type="radio" value={regGrowth}>Nuværende Vækstrate {regGrowth}</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.075} type="radio" value={1.02}>1.02 - R(t):1.10</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.10} type="radio" value={1.03}>1.03 - R(t):1.15</ToggleButton>
                             <ToggleButton checked={coronaStore.growthRate===1.05} type="radio" value={1.05}>1.05 - R(t):1.26</ToggleButton>
