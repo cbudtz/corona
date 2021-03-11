@@ -38,6 +38,7 @@ export const BasicGraph = ({data,dataKey,domain,height,children}) => {
                     <ReferenceLine x="5/1/21" stroke="orange" label={{ value: 'Lockdown 2', angle: -45}}/>
                     <ReferenceLine x="8/2/21" stroke="blue" label={{ value: 'Små klasser starter igen', angle: -45}}/>
                     <ReferenceLine x="20/2/21" stroke="yellow" label={{ value: 'B117 udgør 50%', angle: -45}}/>
+                    <ReferenceLine x="10/3/21" stroke="yellow" label={{ value: 'Ny opgørelsesmetode for smittede', angle: -45}}/>
 
                     <Line type="monotone" dataKey={dataKey} stroke="#8884d8" activeDot={{r: 2}}/>
                     {children}
