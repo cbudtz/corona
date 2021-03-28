@@ -133,7 +133,20 @@ function App() {
                     >
                         <Line type="monotone" dataKey={"Respiratorpatienter"} stroke="green" activeDot={{r: 2}}/>
                     </BasicGraph>
+                    <h2>Case Fatality Rate </h2>
+                    <p>Beregnet som fraktionen af døde efter 14 dage (tilnærmet gns. tid fra konstateret smitte til død).
+                        Antallet af smittede hhv. døde er udjævnet over 7 dage</p>
+
+                    <BasicGraph
+                        data={coronaStore.CaseFatalityRate.map((entry,key)=>{
+                            let content = entry.content.replace("%","");
+                            content = content.replace(",",".");
+                            return {"Case Fatality Rate i %": parseFloat(content), row: entry.date}
+                        })}
+                        dataKey={"Case Fatality Rate i %"}>
+                    </BasicGraph>
                     <div id={"Kort"} style={{paddingTop: 70}}/>
+
 
                     {/*<CoronaMap/>*/}
                     <div id={"Udsigt"} style={{paddingTop: 70}}/>

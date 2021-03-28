@@ -182,6 +182,11 @@ class CoronaStore {
     }
 
     @computed
+    get CaseFatalityRate(){
+        return this.data.filter((entry)=>entry.col==="43" && entry.row!=="1");
+    }
+
+    @computed
     get RegressionGrowthRate(){
         let growthRate = this.data.filter((entry)=>entry.col==="17")[1]?.content;
         let growthText = this.data.filter((entry)=>entry.col==="18")[1]?.content;
