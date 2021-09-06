@@ -27,20 +27,44 @@ class CoronaStore {
     @observable hospitalizationRate = 0.02;
 
     fetchData = async ()=>{
-        let result;
-        result = await fetch("https://spreadsheets.google.com/feeds/cells/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/1/public/full?alt=json");
-        let json = await result.json();
+        // let result;
+        // result = await fetch("https://spreadsheets.google.com/feeds/cells/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/1/public/full?alt=json");
+        // let json = await result.json();
+        const response = await fetch("https://docs.google.com/spreadsheets/d/1PmXIb0k0dpImmQbeZFYAZ1fIKl8OVlTIyAZNk4M3DK4/gviz/tq?tqx=out:json")
+        console.log(response)
+        const text = await response.text();
+        console.log(text)
+        const json = await JSON.parse(text.substr(47).slice(0,-2)).table
+        console.log (json)
         const date = new Date(2020,2,1);
-        const newData =json.feed.entry.map((entry: any,key:number)=>{
-                let now;
-                now = new Date(date.valueOf());
-                now.setDate(now.getDate()+parseInt(entry.gs$cell.row)-1);
-                const dataDate = now.getDate() + "/" + (now.getMonth()+1)+ "/" + now.getFullYear().toString().substr(2);
-                return {date: dataDate, content:entry.content.$t,row:entry.gs$cell.row,col:entry.gs$cell.col}
+        let newData: { date: string; content: string; row: string; col: string; }[] = []
+        for (let i = 0; i < json.rows.length; i++) {
+            let now;
+            // now = new Date(date.valueOf());
+            now = json.rows[i].c[0].v
+            let dataDate =now.substr(5).slice(0,-1).split(",")
+            console.log(dataDate[1])
+            dataDate = dataDate[2] + "/"+(parseInt(dataDate[1])+1)+"/"+dataDate[0].slice(2,4)
+            for (let j = 0; j < json.rows[i].c.length; j++) {
+                if (json.rows[i].c[j]) {
+                    newData.push({date: dataDate, content: json.rows[i].c[j]?.f, row: "" + (i+1), col: "" + (j+1)})
+                }
+
             }
-        );
+            
+        }
+        
+        
+        // const newData =json.feed.entry.map((entry: any,key:number)=>{
+        //         let now;
+        //         now = new Date(date.valueOf());
+        //         now.setDate(now.getDate()+parseInt(entry.gs$cell.row)-1);
+        //         const dataDate = now.getDate() + "/" + (now.getMonth()+1)+ "/" + now.getFullYear().toString().substr(2);
+        //         return {date: dataDate, content:entry.content.$t,row:entry.gs$cell.row,col:entry.gs$cell.col}
+        //     }
+        // );
         this.data = newData;
-        this.structureData(json);
+        //this.structureData(json);
         this.growthRate = parseFloat(this.RegressionGrowthRate[0].replace(",","."))
     };
 
